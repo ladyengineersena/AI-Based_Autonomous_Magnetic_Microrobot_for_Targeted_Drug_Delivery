@@ -17,6 +17,7 @@ from evaluate import greedy_heading_action
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="config/config.yaml")
     parser.add_argument("--policy", choices=["heading", "random", "ppo"], default="heading")
     parser.add_argument("--model", default="models/checkpoints/ppo_microrobot_final.zip")
     parser.add_argument("--obstacles", action="store_true")
@@ -24,7 +25,7 @@ def main() -> None:
     parser.add_argument("--output", default="results/figures/demo_trajectory.png")
     args = parser.parse_args()
 
-    config = load_config()
+    config = load_config(args.config)
     env = MicrorobotEnv(config=config, enable_obstacles=args.obstacles)
     obs, _ = env.reset(seed=args.seed)
     policy = None

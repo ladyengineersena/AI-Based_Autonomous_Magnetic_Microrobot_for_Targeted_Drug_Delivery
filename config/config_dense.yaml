@@ -1,0 +1,52 @@
+simulation:
+  world_size: 1.0
+  dt: 0.05
+  max_steps: 400
+  robot_radius: 0.025
+  target_radius: 0.04
+  goal_threshold: 0.05
+  seed: 42
+
+physics:
+  v_max: 0.18
+  k_align: 8.0
+  max_omega: 6.0
+  b_magnitude: 1.0
+
+environment:
+  enable_obstacles: true
+  n_obstacles: 6
+  obstacle_min_size: 0.08
+  obstacle_max_size: 0.16
+  min_start_goal_distance: 0.35
+  wall_collision: true
+
+reward:
+  goal_bonus: 100.0
+  collision_penalty: -100.0
+  step_penalty: 0.01
+  distance_scale: 10.0
+
+action:
+  n_discrete: 8
+
+ppo:
+  policy: MlpPolicy
+  learning_rate: 3.0e-4
+  n_steps: 2048
+  batch_size: 64
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  net_arch: [128, 128]
+  total_timesteps: 150000
+  log_interval: 10
+  save_freq: 50000
+
+evaluation:
+  n_episodes: 100
+  deterministic: true
